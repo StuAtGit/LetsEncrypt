@@ -18,7 +18,7 @@ Furthermore, it doesn't understand the PEM format that any sane program dealing 
      ```
       $>sudo openssl pkcs12 -export -in cert.pem -inkey privkey.pem -out [pkcs_filename].p12 -name [name]
      ```
-   Keep in mind that you'll be asked to add a password to this temp file. This main seem stupid because you have the private key sitting in plaintext in the privkey.pem file right next to your output.
+   Keep in mind that you'll be asked to add a password to this temp file. This may seem stupid because you have the private key sitting in plaintext in the privkey.pem file right next to your output.
    However, remember - keytool is also stupid, and will NPE if you use an empty password.
 
  - take your pkcs12 file, and create a java keystore from it:
