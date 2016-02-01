@@ -49,3 +49,8 @@ Furthermore, it doesn't understand the PEM format that any sane program dealing 
            sslEnabledProtocols="TLSv1.2"
         />
       ```
+
+ - And finally, you will probably want to add the cert chain for your shiny new cert into your jvm cacerts, so java will trust your privkey. You need this if you app needs to trust itself - like if you have callback.
+   ```
+    keytool --importcert -file fullchain.pem -keystore /usr/lib/jvm/default-java/jre/lib/security/cacerts -v -alias [name]_chain
+   ```
