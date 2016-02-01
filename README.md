@@ -5,6 +5,10 @@
 Something like this:
 ./letsencrypt-auto certonly --standalone --email stu26code@gmail.com -d www.shareplaylearn.com -d shareplaylearn.com -d www.drunkscifi.com -d drunkscifi.com -d www.shareplaylearn.net -d shareplaylearn.net
 
+### Stop, and reconsider nginx
+
+So, you want to run tomcat with ssl do you? How about running tomcat in the clear, and fronting it with nginx, which doesn't require you to deal with the java keystore. You don't want to do that? You sure? The java keystore is an abomination, you know that? You like tomcat? OK. Keep in mind, though, that you and I are both wrong, and we should really move off running ssl in our tomcat. I already have nginx fronting it anyways....
+
 
 ### Create a java keystore
 It should be understood that the java keytool program used create keystores is a complete piece of junk. It will give you errors like "NullPointerException, invalid input" if you don't give it a pkcs12 archive with a password.
