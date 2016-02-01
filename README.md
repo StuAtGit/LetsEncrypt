@@ -51,6 +51,7 @@ Furthermore, it doesn't understand the PEM format that any sane program dealing 
       ```
 
  - And finally, you will probably want to add the cert chain for your shiny new cert into your jvm cacerts, so java will trust your privkey. You need this if you app needs to trust itself - like if you have callback.
+   If you haven't changed your cacert password (likely), it is "changeit"
    ```
     keytool --importcert -file fullchain.pem -keystore /usr/lib/jvm/default-java/jre/lib/security/cacerts -v -alias [name]_chain
    ```
