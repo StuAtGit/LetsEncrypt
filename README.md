@@ -9,10 +9,7 @@ Something like this:
 
 So, you want to run tomcat with ssl do you? How about running tomcat in the clear, and fronting it with nginx, which doesn't require you to deal with the java keystore. You don't want to do that? You sure? The java keystore is an abomination, you know that? You like tomcat? OK. Keep in mind, though, that you and I are both wrong, and we should really move off running ssl in our tomcat. I already have nginx fronting it anyways....
 
-### Only real reason why
-You're using tomcat instead of  <a href="http://sparkjava.com/">Spark Java</a> (Again, why? Maybe legacy??), and you need true end-to-end encryption. For example, you have tomcat on one server in the cloud, and nginx on another, and on some clouds (like digital ocean - hereafter DO), the "private networks" are only private outside the DC. Unless DO says differently, that means anyone with a machine in the same DC can eavesdrop. Of course, your provider will ALWAYS be technically able to eavesdrop, as well as anyone with legal leverage over the provider, but it does prevent random customers on DO from seeing your traffic. But really? you should use sparkjava, co-located with nginx, and bind only to loopback. 
-
-### Create a java keystore
+## Create a java keystore
 It should be understood that the java keytool program used create keystores is a complete piece of junk. It will give you errors like "NullPointerException, invalid input" if you don't give it a pkcs12 archive with a password.
 Furthermore, it doesn't understand the PEM format that any sane program dealing with certificates would. In short, take 10 deep breathes before using it, and don't give up - it's probably the keytool doing something very, very, very stupid.
 
@@ -56,4 +53,8 @@ Furthermore, it doesn't understand the PEM format that any sane program dealing 
    If you haven't changed your cacert password (likely), it is "changeit"
    ```
     keytool --importcert -file fullchain.pem -keystore /usr/lib/jvm/default-java/jre/lib/security/cacerts -v -alias [name]_chain
-   ```
+ 
+### Only real reason why
+You're using tomcat instead of  <a href="http://sparkjava.com/">Spark Java</a> (Again, why? Maybe legacy??), and you need true end-to-end encryption. For example, you have tomcat on one server in the cloud, and nginx on another, and on some clouds (like digital ocean - hereafter DO), the "private networks" are only private outside the DC. Unless DO says differently, that means anyone with a machine in the same DC can eavesdrop. Of course, your provider will ALWAYS be technically able to eavesdrop, as well as anyone with legal leverage over the provider, but it does prevent random customers on DO from seeing your traffic. But really? you should use sparkjava, co-located with nginx, and bind only to loopback. 
+
+#  ```
