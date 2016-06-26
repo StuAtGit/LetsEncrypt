@@ -54,5 +54,7 @@ Furthermore, it doesn't understand the PEM format that any sane program dealing 
    ```
     keytool --importcert -file fullchain.pem -keystore /usr/lib/jvm/default-java/jre/lib/security/cacerts -v -alias [name]_chain
 
+   And that should do it! 
+
 ### Only real reason why
 You're using tomcat instead of  <a href="http://sparkjava.com/">Spark Java</a> (Again, why? Maybe legacy??), and you need true end-to-end encryption. For example, you have tomcat on one server in the cloud, and nginx on another, and on some clouds (like digital ocean - hereafter DO), the "private networks" are only private outside the DC. Unless DO says differently, that means anyone with a machine in the same DC can eavesdrop. Of course, your provider will ALWAYS be technically able to eavesdrop, as well as anyone with legal leverage over the provider, but it does prevent random customers on DO from seeing your traffic. But really? you should use sparkjava, co-located with nginx, and bind only to loopback. 
